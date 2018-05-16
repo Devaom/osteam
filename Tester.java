@@ -2,7 +2,6 @@ package osteam;
 
 import java.io.*;
 import java.util.*;
-//import osteam.*;
 
 public class Tester{
 

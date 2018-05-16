@@ -19,7 +19,7 @@ class RR_Scheduler implements Scheduler{
 		Queue<Integer> queue = new LinkedList<Integer>(); // 스케줄링 순서를 관리하기 위한 큐
 		queue.offer(1); // process1 부터 시작
 
-		while(true){
+		do{
 			int key = queue.remove(); // 어떤 프로세스가 CPU를 선점할 것인지
 
 			for(int q = 0 ; q < quantum ; q++){
@@ -49,9 +49,8 @@ class RR_Scheduler implements Scheduler{
 				queue.offer(key);
 			}
 
-			if(queue.isEmpty()) // 남은 프로세스가 있는가? -> 없으면 반복문 종료
-				break;
-		}
+		}while(queue.isEmpty()) // 남은 프로세스가 있는지? -> 없으면 반복문을 종료
+
 		return result;
 	}
 }
