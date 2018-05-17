@@ -71,19 +71,12 @@ class HRRN_Scheduler implements Scheduler{
 			}
 		}
 
-		System.out.println("\t\t\t\t< 간트 차트 >");
-		System.out.println("p  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25");
-		for(int pid : input.keySet()){
-			System.out.print(pid);
-			for(int time : trace.keySet()){
-				if(trace.get(time) == pid)
-					System.out.print("  ■");
-				else
-					System.out.print("   ");
-			}
-			System.out.println("");
-		}
 
         return result;
     }
+	public Map<Integer, Integer> getProcessTrace(){
+		// 간트차트를 그리고 싶음 -> 프로세스의 수행 궤적을 저장해야 함
+		// 수행 궤적 정보의 규격: totalCurrentTime, pid
+		return trace;
+	}
 }

@@ -34,10 +34,10 @@ public class Tester{
 					System.out.println("\t\t * * * Feedback 스케줄링 알고리즘 테스트 결과입니다 * * *");
 					break;
 				case "0":
-					System.out.println("\t스케줄러 테스터를 종료합니다");
+					System.out.println("\n\t\t스케줄러 테스터를 종료합니다");
 					return;
 				default:
-					System.out.println("\t잘못된 입력입니다");
+					System.out.println("\n\t\t잘못된 입력입니다");
 					continue;
 			}
 
@@ -49,6 +49,20 @@ public class Tester{
 
 			Map<Integer, Integer[]> result = scheduler.getResult();
 			
+			Map<Integer, Integer> trace = scheduler.getProcessTrace();
+			System.out.println("\t\t\t\t< 간트 차트 >");
+			System.out.println("p  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25");
+			for(int pid : input.keySet()){
+				System.out.print(pid);
+				for(int time : trace.keySet()){
+					if(trace.get(time) == pid)
+						System.out.print("  ■");
+					else
+						System.out.print("   ");
+				}
+				System.out.println("");
+			}
+
 			System.out.println("\n\n-\t-\t-\t-\t< 분석 결과 >\t-\t-\t-\t-\t-\t-");
 			System.out.println("프로세스ID\t도착시간\t서비스시간\t종료시간\t반환시간\t정규화된반환시간");
 			for(int pid : result.keySet()){
@@ -83,4 +97,5 @@ public class Tester{
 interface Scheduler{
 
     public Map<Integer, Integer[]> getResult();
+	public Map<Integer, Integer> getProcessTrace();
 }
