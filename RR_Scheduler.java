@@ -30,18 +30,21 @@ class RR_Scheduler implements Scheduler{
 				trace.put(totalCurrentTime, processId); // 프로세스 수행궤적 저장
 
 				for(int inputKey : input.keySet()) // 중간에 프로세스가 큐에 진입한 경우 탐색
-					if((input.get(inputKey)[0] == totalCurrentTime) && (totalCurrentTime != 0)){
+					//if((input.get(inputKey)[0] == totalCurrentTime) && (totalCurrentTime != 0)){ // Integer Caching 에 의한 무한루프 버그를 일으킴
+					if((input.get(inputKey)[0].equals(totalCurrentTime)) && (totalCurrentTime != 0)){
 						queue.offer(inputKey);
-						//System.out.println("process" + inputKey + " 진입");
+						System.out.println("process" + inputKey + " 진입");
 					}
 
 				totalCurrentTime++;
 
-				if(svcTime.get(processId) == input.get(processId)[1]) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
+				//if(svcTime.get(processId) == input.get(processId)[1]) // Integer Caching에 의한 무한루프 버그를 일으킴
+				if(svcTime.get(processId).equals(input.get(processId)[1])) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
 					break;
 			}
 
-			if(svcTime.get(processId) == input.get(processId)[1]){ // 필요 서비스 시간을 만족하지 못했는지의 여부검사 -> 만족할 경우 result에 등록
+			//if(svcTime.get(processId) == input.get(processId)[1]){ // Integer Caching 에 의한 무한루프 버그를 일으킴
+			if(svcTime.get(processId).equals(input.get(processId)[1])){ // 필요 서비스 시간을 만족하지 못했는지의 여부 검사 -> 만족할 경우 result에 등록
 				int prc_arrTime = input.get(processId)[0]; // 도착시간
 				int prc_svcTime = input.get(processId)[1]; // 서비스시간
 				int prc_endTime = totalCurrentTime; // 종료시간
@@ -49,6 +52,7 @@ class RR_Scheduler implements Scheduler{
 				int prc_normalReturnTime = prc_returnTime / prc_svcTime; // 정규화된 반환시간
 				Integer[] values = {prc_arrTime, prc_svcTime, prc_endTime, prc_returnTime, prc_normalReturnTime};
 				result.put(processId, values);
+				System.out.println("Process " + processId + " 종료! queue.size() = " + queue.size() + ", svcTime.size() = " + svcTime.size());
 			}else{ // 필요 서비스 시간을 만족하지 못하였을 경우 다시 queue에 저장
 				queue.offer(processId);
 			}

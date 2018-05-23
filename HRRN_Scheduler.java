@@ -36,12 +36,14 @@ class HRRN_Scheduler implements Scheduler{
 				trace.put(totalCurrentTime, processId); // 프로세스 수행궤적 저장
 
 				for(int inputKey : input.keySet()) // 중간에 프로세스가 큐에 진입한 경우 탐색
-					if((input.get(inputKey)[0] == totalCurrentTime) && (totalCurrentTime != 0)){
+					//if((input.get(inputKey)[0] == totalCurrentTime) && (totalCurrentTime != 0)){ // Integer Caching에 의한 무한루프 버그를 일으킴
+					if((input.get(inputKey)[0].equals(totalCurrentTime)) && (totalCurrentTime != 0)){
 						queue.add(inputKey);
 					}
 
 				totalCurrentTime++;
-			}while(svcTime.get(processId) != input.get(processId)[1]);
+			}while(!svcTime.get(processId).equals(input.get(processId)[1]));
+			//}while(svcTime.get(processId) != input.get(processId)[1]); // Integer Caching에 의한 무한루프 버그를 일으킴
 
 			// 종료된 프로세스 result에 반영 및 key 초기화
 			int prc_arrTime = input.get(processId)[0]; // 도착시간
