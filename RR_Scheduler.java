@@ -33,7 +33,7 @@ class RR_Scheduler implements Scheduler{
 					//if((input.get(inputKey)[0] == totalCurrentTime) && (totalCurrentTime != 0)){ // Integer Caching 에 의한 무한루프 버그를 일으킴
 					if((input.get(inputKey)[0].equals(totalCurrentTime)) && (totalCurrentTime != 0)){
 						queue.offer(inputKey);
-						System.out.println("process" + inputKey + " 진입");
+						//System.out.println("process" + inputKey + " 진입");
 					}
 
 				totalCurrentTime++;
@@ -52,7 +52,7 @@ class RR_Scheduler implements Scheduler{
 				int prc_normalReturnTime = prc_returnTime / prc_svcTime; // 정규화된 반환시간
 				Integer[] values = {prc_arrTime, prc_svcTime, prc_endTime, prc_returnTime, prc_normalReturnTime};
 				result.put(processId, values);
-				System.out.println("Process " + processId + " 종료! queue.size() = " + queue.size() + ", svcTime.size() = " + svcTime.size());
+				//System.out.println("Process " + processId + " 종료! queue.size() = " + queue.size() + ", svcTime.size() = " + svcTime.size());
 			}else{ // 필요 서비스 시간을 만족하지 못하였을 경우 다시 queue에 저장
 				queue.offer(processId);
 			}
