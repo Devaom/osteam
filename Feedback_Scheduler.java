@@ -52,12 +52,12 @@ class Feedback_Scheduler implements Scheduler{
 						readyQueue.get(0).offer(pid); // 맨 처음 준비 큐에 해당 프로세스 넣기
 				}
 				totalCurrentTime++;
-				if(svcTime.get(processId).equals(input.get(processId)[1])) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
-				//if(svcTime.get(processId) == input.get(processId)[1]) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
+				//if(svcTime.get(processId).equals(input.get(processId)[1])) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
+				if(svcTime.get(processId) == input.get(processId)[1]) // 필요 서비스 시간을 만족시킨 경우 -> 반복문 종료
 					break;
 			}
-			//if(svcTime.get(processId) == input.get(processId)[1]) // Integer Caching에 의한 무한루프 버그를 일으킴
-			if(svcTime.get(processId).equals(input.get(processId)[1])) // 필요 서비스 시간을 만족하지 못했는지의 여부검사 -> 만족할 경우 result에 등록
+			if(svcTime.get(processId) == input.get(processId)[1]) // Integer Caching에 의한 무한루프 버그를 일으킴
+			//if(svcTime.get(processId).equals(input.get(processId)[1])) // 필요 서비스 시간을 만족하지 못했는지의 여부검사 -> 만족할 경우 result에 등록
 			{
 				int prc_arrTime = input.get(processId)[0]; // 도착시간
 				int prc_svcTime = input.get(processId)[1]; // 서비스시간
