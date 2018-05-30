@@ -48,7 +48,7 @@ class Feedback_Scheduler implements Scheduler{
 				trace.put(totalCurrentTime, processId); // 프로세스 수행궤적 저장
 
 				for(int pid : input.keySet()){
-					if(input.get(pid)[0] - 1 == totalCurrentTime && totalCurrentTime != 0) // 다른 프로세스의 진입 시간과 현재 시간이랑 같을 때 input.get(inputKey)[0] = 도착시간
+					if(input.get(pid)[0] == totalCurrentTime && totalCurrentTime != 0) // 다른 프로세스의 진입 시간과 현재 시간이랑 같을 때 input.get(inputKey)[0] = 도착시간
 						readyQueue.get(0).offer(pid); // 맨 처음 준비 큐에 해당 프로세스 넣기
 				}
 				totalCurrentTime++;
